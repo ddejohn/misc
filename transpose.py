@@ -32,5 +32,5 @@ t2 = timeit.timeit(
     globals=globals()
 )
 
-print(f"          zip method: {round(t1, 2)} s")
-print(f"comprehension method: {round(t2, 2)} s")
+print(f"       zip method: {round(t1, 2)} s")
+print(f"    comprehension: {round(t2, 2)} s")
