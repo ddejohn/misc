@@ -1,11 +1,36 @@
-x = [[i for j in range(10)] for i in range(4)]
+import timeit
+from random import random, randint
 
-xt = [[*t] for t in zip(*x)]
 
-print("\nx:\n")
-for row in x:
-    print(row,)
+rows = randint(20, 120)
+cols = randint(20, 120)
 
-print("\nx transpose:\n")
-for row in xt:
-    print(row,)
+x = [[random() for _ in range(cols)] for _ in range(rows)]
+
+
+def my_transpose(x):
+    return [[*t] for t in zip(*x)]
+# end
+
+
+def ugly_transpose(x):
+    return [[r[i] for r in x] for i in range(len(x[0]))]
+# end
+
+
+print(f"testing transpose on {rows}x{cols} matrix . . .\n")
+
+t1 = timeit.timeit(
+    "my_transpose(x)",
+    number=100000,
+    globals=globals()
+)
+
+t2 = timeit.timeit(
+    "ugly_transpose(x)",
+    number=100000,
+    globals=globals()
+)
+
+print(f"          zip method: {round(t1, 2)} s")
+print(f"comprehension method: {round(t2, 2)} s")
