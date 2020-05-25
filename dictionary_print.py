@@ -105,42 +105,13 @@ d = {
 
 def verbose_print(data, calls=0):
     out = ""
-    spc = "    "
+    t = "|   "
     for key, val in data.items():
         if isinstance(val, dict):
-            out += spc*calls + f"{key}:\n{verbose_print(val, calls+1)}"
+            out += t*calls + f"{key}:\n{verbose_print(val, calls+1)}"
         else:
-            out += spc*calls + f"{key}: {val}\n"
+            out += t*calls + f"{key}: {val}\n"
     return out
 
 
-def brief_print(data, calls=0):
-    out = ""
-    col = ""
-    spc = "    "
-    for key, val in data.items():
-        if isinstance(val, dict) and calls < 2:
-            if calls < 1:
-                col = ":"
-            out += spc*calls + f"{key}{col}\n{brief_print(val, calls+1)}"
-        elif val not in (0, '') and calls < 2:
-            out += spc*calls + f"{key}: {val}\n"
-    return out
-
-
-def dict_print(data: dict, t=0):
-    out = ""
-    header = "|   "
-    for k,v in data.items():
-        out += f"{t*header}{k}\n"
-        if isinstance(v, dict):
-            out += dict_print(v, t+1)
-        elif isinstance(v, list):
-            for elem in v:
-                out += f"{(t+1)*header}{elem}\n"
-    return out
-# end
-
-# print(verbose_print(d))
-# print(brief_print(d))
-print(dict_print(d))
+print(verbose_print(d))

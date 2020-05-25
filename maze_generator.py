@@ -62,10 +62,3 @@ def build():
             maze[coord] = 2
     
     return maze, rooms
-
-
-if __name__ == "__main__":
-    for i in range(100000):
-        build()
-        if i%1000 == 0:
-            print(f"success {i}")
