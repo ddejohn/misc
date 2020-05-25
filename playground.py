@@ -33,9 +33,8 @@ def flatten(x: list) -> list:
 # end
 
 
-def binary_combs():
-    # [[(i&n**2)//n**2, (i&n)//n, (i&1)] for i in range(n**3)]
-    return [((i&4)//4, (i&2)//2, i&1) for i in range(8)]
+def binary_combs(n: int) -> list:
+    return [tuple((i&2**j)//(2**j) for j in range(n)) for i in range(2**n)]
 # end
 
 
@@ -50,12 +49,35 @@ def combs(n, k):
 
 
 if __name__=="__main__":
+    from itertools import product
+    import timeit
+
     while True:
         n = int(input("n: "))
         if n < 2:
             break
         k = int(input("k: "))
-        print(combs(n, k))
+
+        # t1 = timeit.timeit(
+        #     "combs(n,k)",
+        #     number=1,
+        #     globals=globals()
+        # )
+        # t2 = timeit.timeit(
+        #     "product(*[[*range(n)]]*k)",
+        #     number=1,
+        #     globals=globals()
+        # )
+
+        for comb in combs(n, k):
+            print(comb,)
+        print()
+        for comb in product(range(n), repeat=k):
+            print(comb,)
+
+        # print(t1, t2)
+
+        # k = int(input("k: "))
+        # print(combs(n, k))
     # end
 # end
-
