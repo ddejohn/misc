@@ -1,4 +1,5 @@
-import itertools, timeit
+import itertools
+import timeit
 from typing import List, Tuple
 
 
@@ -52,7 +53,7 @@ def cartesian(n: int, k: int) -> List[Tuple]:
         List[Tuple]: A list of coordinate tuples in a k-dimensional
             hypercube subdivided n times, with one 'corner' at the origin.
     """
-    return [*zip(*[[j//(n**(k-i))%n for j in range(n**k)] for i in range(1,k+1)])]
+    return [*zip(*[[j//(n**(k-i)) % n for j in range(n**k)] for i in range(1, k+1)])]
 # end
 
 
@@ -64,7 +65,7 @@ def nested():
             for k in r:
                 for p in r:
                     for q in r:
-                        x.append((i,j,k,p,q))
+                        x.append((i, j, k, p, q))
     return x
 
 

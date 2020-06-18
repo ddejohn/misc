@@ -4,4 +4,3 @@ def flatten(data: list) -> list:
     if not isinstance(data[0], list):
         return data
     return flatten(data)
-# end

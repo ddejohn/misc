@@ -89,19 +89,20 @@ d = {
             }
         },
         'rusty meteorite longbow': {
-            'type': 'weapon', 
-            'description': '', 
+            'type': 'weapon',
+            'description': '',
             'stats': {
-                'attack': 16, 
-                'amount': 0, 
-                'strength': 0, 
-                'weight': 14, 
-                'luck': 7, 
+                'attack': 16,
+                'amount': 0,
+                'strength': 0,
+                'weight': 14,
+                'luck': 7,
                 'equipable': True
             }
         }
     }
 }
+
 
 def verbose_print(data, calls=0):
     out = ""

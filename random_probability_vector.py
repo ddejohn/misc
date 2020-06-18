@@ -2,6 +2,7 @@ from random import randint, choices, choice, seed
 
 seed(1)
 
+
 def prob_vec(n: int) -> list:
     """Return an `n`-length list of randomly generated
        non-zero floats, the sum of which will be `1.0`.

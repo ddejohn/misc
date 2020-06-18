@@ -1,4 +1,5 @@
-import os, time
+import os
+import time
 
 
 def countdown(minutes):
@@ -8,9 +9,7 @@ def countdown(minutes):
         print(out, end="\r", flush=True)
         time.sleep(1)
     print("\n\n    TIME'S UP!")
-# end
 
 
 def cls():
     os.system("cls")
-# end

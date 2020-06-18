@@ -1,5 +1,5 @@
 def divisors(n: int) -> list:
-    return [*filter(lambda x: n % x == 0, range(1,n+1))]
+    return [*filter(lambda x: n % x == 0, range(1, n+1))]
 # end
 
 
@@ -34,7 +34,7 @@ def flatten(x: list) -> list:
 
 
 def binary_combs(n: int) -> list:
-    return [tuple((i&2**j)//(2**j) for j in range(n)) for i in range(2**n)]
+    return [tuple((i & 2**j)//(2**j) for j in range(n)) for i in range(2**n)]
 # end
 
 
@@ -48,16 +48,16 @@ def combs(n, k):
 # end
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from itertools import product
     import timeit
 
     # while True:
     n, k = 3, 3
-        # n = int(input("n: "))
-        # if n < 2:
-        #     break
-        # k = int(input("k: "))
+    # n = int(input("n: "))
+    # if n < 2:
+    #     break
+    # k = int(input("k: "))
 
     t1 = timeit.timeit(
         "combs(n,k)",
@@ -70,15 +70,15 @@ if __name__=="__main__":
         globals=globals()
     )
 
-        # for comb in combs(n, k):
-        #     print(comb,)
-        # print()
-        # for comb in product(range(n), repeat=k):
-        #     print(comb,)
+    # for comb in combs(n, k):
+    #     print(comb,)
+    # print()
+    for comb in product(range(n), repeat=k):
+        print(comb,)
 
     print(t1, t2)
 
-        # k = int(input("k: "))
-        # print(combs(n, k))
+    # k = int(input("k: "))
+    # print(combs(n, k))
     # end
 # end

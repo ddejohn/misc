@@ -2,7 +2,6 @@
 
 from random import shuffle, choice
 from operator import add
-import matplotlib.pyplot as plt
 from numpy import zeros as npz
 
 
@@ -48,7 +47,7 @@ def build():
             k = path[max(path.index(k)-1, 1)]
         else:
             k = path[-1]
-    
+
     for coord in path:
         i, j = coord
         neighbors = [
@@ -60,5 +59,5 @@ def build():
         if neighbors in rules:
             rooms.append(coord)
             maze[coord] = 2
-    
+
     return maze, rooms
