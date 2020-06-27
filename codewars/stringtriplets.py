@@ -1,10 +1,31 @@
-class Link:
-    def __init__(self, label):
-        self.label = label
-        self.nxt = None
-    
-    def __str__(self):
-        return f"{self.label} -> {self.nxt}"
+# class Tree:
+#     def __init__(self, label):
+#         self.label = label
+#         self.nodes = []
+
+#     def __str__(self):
+#         return self.label + "\n  -> ".join(map(str, self.nodes))
+        # str_out = self.label
+
+        # if not self.nodes:
+        #     return str_out
+        
+        # for branch in self.nodes:
+        #     str_out += f"\n  {branch}"
+        
+        # return str_out
+
+    # def flatten(self):
+    #     if not self.nodes:
+    #         return self.label
+        
+    #     path = [self.label]
+    #     for branch in self.nodes:
+
+
+
+# def get_key(d, v):
+#     return list(d.keys())[list(d.values()).index(v)]
 
 
 def duplets(triplets):
@@ -18,29 +39,55 @@ def duplets(triplets):
 
 
 def recoverSecret(triplets):
-    # links = [Link(*dup) for dup in duplets(triplets)]
-    links = []
-    for dup in duplets(triplets):
-        x, y = dup
-        link = Link(x)
-        link.nxt = Link(y)
-        links.append(link)
+    tree = {}
+    roots, nodes = set(), set()
+    for root, node in duplets(triplets):
+        roots.add(root)
+        nodes.add(node)
+        tree[root] = tree.get(root, []) + [node]
 
+    a, b = roots ^ nodes
+    start, end = (a, b) if a in tree else (b, a)
+    tree[end] = []
 
-    for link in links:
-        print(link)
+    return top_sort(tree)
+    # print(tree)
 
+def top_sort(graph):
+    path = []
+    visited = []
+    temp = []
+    nodes = [*graph.keys()]
+    
+    def visit(n):
+        if n in visited:
+            return
+
+        temp.append(n)
+        for m in graph[n]:
+            visit(m)
+
+        temp.remove(n)
+        visited.append(n)
+        path = [n] + path
+
+    while nodes:
+        n = nodes.pop()
+        visit(n)
+    
+    return path
 
 
 triplets = [
-    ['t','u','p'],
     ['w','h','i'],
-    ['t','s','u'],
-    ['a','t','s'],
+    ['t','u','p'],
     ['h','a','p'],
+    ['t','s','u'],
     ['t','i','s'],
+    ['a','t','s'],
     ['w','h','s']
 ]
 
 
-recoverSecret(triplets)
+
+print(recoverSecret(triplets))
