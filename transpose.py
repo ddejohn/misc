@@ -9,7 +9,7 @@ x = [[random() for _ in range(cols)] for _ in range(rows)]
 
 
 def my_transpose(x):
-    return [[*zip(*x)]]
+    return [[*t] for t in zip(*x)]
 # end
 
 
@@ -19,7 +19,7 @@ def ugly_transpose(x):
 
 
 print(f"testing transpose on {rows}x{cols} matrix . . .\n")
-# print(my_transpose(x) == ugly_transpose(x))
+print(my_transpose(x) == ugly_transpose(x))
 
 
 t1 = timeit.timeit(
