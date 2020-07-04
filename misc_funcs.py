@@ -11,9 +11,7 @@ def bits(n: int):
 
 def fac(n: int) -> int:
     """Returns n!"""
-    if n < 2:
-        return 1
-    return n*fac(n-1)
+    return 1 if n < 2 else n*fac(n-1)
 
 
 def nCk(n: int, k: int) -> int:
