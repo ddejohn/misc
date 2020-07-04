@@ -1,3 +1,14 @@
+from random import choice
+
+
+# generates n random bits
+def bits(n: int):
+    i = 0
+    while i < n:
+        i += 1
+        yield choice([0,1])
+
+
 # return the factorial of a positive integer 'n'
 def fac(n: int) -> int:
     if n < 2:
@@ -23,13 +34,11 @@ def binomial_cdf(n: int, k: int, p: float) -> float:
 # end
 
 
-def anagram(lst):
-    return [i for i in lst for j in lst if i != j and (sorted(i) == sorted(j))]
+def anagrams(words: list) -> list:
+    """Return a list of words with anagrams present in input."""
+    scram = [*map(set, words)]
+    return [*filter(lambda w: scram.count(set(w)) > 1, words)]
 # end
-
-
-# our test string
-s = "4of Fo1r pe6ople (*) aofwj1 g3ood!e the2 st8 wan2 0a ssss aaa0a"
 
 
 def sort_words(s: str) -> str:
@@ -46,4 +55,9 @@ def sort_words(s: str) -> str:
 # end
 
 
-print(sort_words(s))
+# our test string
+# s = "4of Fo1r pe6ople (*) aofwj1 g3ood!e the2 st8 wan2 0a ssss aaa0a"
+# print(sort_words(s))
+
+print(anagrams(["abcdcba", "radar", "cow", "bat", "tab"]))
+
