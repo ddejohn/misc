@@ -9,9 +9,10 @@ def bits(n: int):
         yield choice([0,1])
 
 
-def rec_dig_sum(n: int) -> int:
+def dig_root(n: int) -> int:
+    """Recursively compute the digital root of n."""
     q, m = divmod(n, 10)
-    return n if n == m else rec_dig_sum(q + rec_dig_sum(m))
+    return n if n == m else dig_root(q + dig_root(m))
 
 
 def fac(n: int) -> int:
