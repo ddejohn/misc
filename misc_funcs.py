@@ -16,7 +16,7 @@ def fac(n: int) -> int:
 
 def nCk(n: int, k: int) -> int:
     """Returns n choose k."""
-    return int(fac(n) / (fac(n - k) * fac(k)))
+    return fac(n) // (fac(n - k) * fac(k))
 
 
 def binomial_pmf(n: int, p: float, k: int) -> float:
@@ -52,5 +52,5 @@ def sort_words(s: str) -> str:
 # s = "4of Fo1r pe6ople (*) aofwj1 g3ood!e the2 st8 wan2 0a ssss aaa0a"
 # print(sort_words(s))
 
-print(anagrams(["abcdcba", "radar", "cow", "bat", "tab"]))
+# print(anagrams(["abcdcba", "radar", "cow", "bat", "tab"]))
 
