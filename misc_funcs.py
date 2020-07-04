@@ -1,48 +1,44 @@
 from random import choice
 
 
-# generates n random bits
 def bits(n: int):
+    """n-length bit sequence generator."""
     i = 0
     while i < n:
         i += 1
         yield choice([0,1])
 
 
-# return the factorial of a positive integer 'n'
 def fac(n: int) -> int:
+    """Returns n!"""
     if n < 2:
         return 1
     return n*fac(n-1)
-# end
 
 
-# the number of ways to choose 'k' things from 'n' total things
 def nCk(n: int, k: int) -> int:
+    """Returns n choose k."""
     return int(fac(n) / (fac(n - k) * fac(k)))
-# end
 
 
-# probability of 'k' successes in 'n' bernoulli trials with prob of 'p'
-def binomial_pmf(n: int, k: int, p: float) -> float:
+def binomial_pmf(n: int, p: float, k: int) -> float:
+    """Returns P(X = k)."""
     return nCk(n, k) * (p**k) * ((1 - p)**(n-k))
-# end
 
 
-def binomial_cdf(n: int, k: int, p: float) -> float:
+def binomial_cdf(n: int, p: float, k: int) -> float:
+    """Returns P(X <= k)."""
     return sum(binomial_pmf(n, i, p) for i in range(k+1))
-# end
 
 
 def anagrams(words: list) -> list:
-    """Return a list of words with anagrams present in input."""
+    """Returns a list of words with anagrams present in input."""
     scram = [*map(set, words)]
     return [*filter(lambda w: scram.count(set(w)) > 1, words)]
-# end
 
 
 def sort_words(s: str) -> str:
-    """Sort a sentence 's' by the first digit in each word of 's'"""
+    """Sort a sentence 's' by the first digit in each word of 's'."""
     # filter out words that don't have at least one digit
     s = filter(lambda word: any(map(str.isdigit, word)), s.split())
 
@@ -52,7 +48,6 @@ def sort_words(s: str) -> str:
 
     # return a sentence
     return " ".join(s)
-# end
 
 
 # our test string
