@@ -17,14 +17,15 @@ def last_digit(n, p):
     return lookup[k][p % 4]
 
 
-def reduce(f, args):
+def foldr(f, args):
     if len(args) == 2:
         return f(args[0], args[1])
-    return f(args[0], reduce(f, args[1:]))
+    return f(args[0], foldr(f, args[1:]))
 
 
-x = [776402, 517479, 843559, 517424, 159445, 605444, 458246] # -> 8
-# x = [776402, 517479, 843559, 517424, 159445, 605444, 458246, 103959] # -> 8
+# x = [776402, 517479, 843559, 517424, 159445, 605444, 458246] # -> 8
+x = [776402, 517479, 843559, 517424, 159445, 605444, 458246, 103959] # -> 8
 # x = [226001, 625681, 879174, 566096, 100234] # -> 1
 
-print(reduce(last_digit, x))
+# print(foldr(last_digit, x))
+print(last_digit(3, 14))
