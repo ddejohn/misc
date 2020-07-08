@@ -10,6 +10,10 @@ polys = [
     "x+1"
 ]
 
+def d_poly(f, x):
+    terms = [map(lambda n: 1 if not n else -1 if n == "-" else int(n), tup) for tup in pattern.findall(f)]
+    return sum((c*k)*x**(k-1) for c, k in terms)
+
 
 for p in polys:
-    print([*filter(any, pattern.findall(p))])
+    print(d_poly(p, 1))
