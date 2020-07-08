@@ -19,7 +19,7 @@ def last_digit(n, p):
 
 def foldr(f, args):
     if len(args) == 2:
-        return f(args[0], args[1])
+        return f(*args)
     return f(args[0], foldr(f, args[1:]))
 
 
