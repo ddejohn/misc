@@ -24,13 +24,13 @@ print(my_transpose(x) == ugly_transpose(x))
 
 t1 = timeit.timeit(
     "my_transpose(x)",
-    number=100000,
+    number=10000,
     globals=globals()
 )
 
 t2 = timeit.timeit(
     "ugly_transpose(x)",
-    number=100000,
+    number=10000,
     globals=globals()
 )
 
