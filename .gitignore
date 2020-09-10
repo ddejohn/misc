@@ -1,4 +1,5 @@
-/archive
-.ipynb_checkpoints
-.pyc
+archive
+*.ipynb_checkpoints
+*.pyc
 tempCodeRunnerFile.python
+__pycache__
