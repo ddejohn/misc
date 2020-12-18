@@ -61,3 +61,5 @@ def build():
             maze[coord] = 2
 
     return maze, rooms
+
+build()
