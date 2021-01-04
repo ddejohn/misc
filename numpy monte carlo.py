@@ -47,11 +47,11 @@ def monte_carlo(f: callable, n: int, x_bound: float, y_bound: float) -> float:
     float
         The approximate area under f between -x_bound and x_bound.
     """
-    # rng = RandomState(MT19937(SeedSequence(36297823785)))
-    # x_vals = x_bound * rng.rand(n)
-    # y_vals = y_bound * rng.rand(n)
-    x_vals = x_bound * np.random.rand(n)
-    y_vals = y_bound * np.random.rand(n)
+    rng = RandomState(MT19937(SeedSequence(36297823785)))
+    x_vals = x_bound * rng.rand(n)
+    y_vals = y_bound * rng.rand(n)
+    # x_vals = x_bound * np.random.rand(n)
+    # y_vals = y_bound * np.random.rand(n)
 
     return 2 * x_bound * y_bound * len(y_vals[y_vals <= f(x_vals)]) / n
 
@@ -75,14 +75,11 @@ def monte_carlo(f: callable, n: int, x_bound: float, y_bound: float) -> float:
 # )
 
 
-# a = mc1(f=std_nrm_dst, n=n, domain=(x_bound, y_bound))
-# b = mc2(f=std_nrm_dst, n=n, domain=(x_bound, y_bound))
+a = monte_carlo(f=f, n=100000000, x_bound=2, y_bound=f(0))
+b = monte_carlo(f=f, n=100000000, x_bound=2, y_bound=10*f(0))
 
-# print(a)
-# print(b)
+print(a)
+print(b)
 # print(a == b)
 # print(f"mc1: {round(t1, 2)} s")
 # print(f"mc2: {round(t2, 2)} s")
-
-print(monte_carlo(f=f, n=10000000, x_bound=2, y_bound=f(0)))
-
