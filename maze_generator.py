@@ -3,6 +3,7 @@
 from random import shuffle, choice
 from operator import add
 from numpy import zeros as npz
+import matplotlib.pyplot as plt
 
 
 def build():
@@ -62,4 +63,17 @@ def build():
 
     return maze, rooms
 
-build()
+
+def draw(maze):
+    """display the maze"""
+    plt.figure(figsize=(len(maze[0])//2, len(maze)//2))
+    plt.pcolormesh(maze, cmap=plt.cm.get_cmap("tab20b"))
+    plt.axis("equal")
+    plt.axis("off")
+    # plt.ion()
+    plt.show(block=True)
+
+
+
+maze, rooms = build()
+draw(maze)
