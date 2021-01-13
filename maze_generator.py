@@ -6,7 +6,7 @@ from numpy import zeros as npz
 import matplotlib.pyplot as plt
 
 
-def build():
+def build_maze():
     """Generate a maze with rooms on intersections, corners, and dead-ends"""
 
     rules = [
@@ -21,9 +21,9 @@ def build():
     ]
 
     x = choice([10, 12, 14, 18])
-    y = 148//x
-    maze = npz((x+1, y+1), dtype=int)
-    grid = [(i, j) for i in range(1, x+1, 2) for j in range(1, y+1, 2)]
+    y = 148 // x
+    maze = npz((x + 1, y + 1), dtype=int)
+    grid = [(i, j) for i in range(1, x + 1, 2) for j in range(1, y + 1, 2)]
     path = [choice(grid)]
     rooms = []
     k = path[0]
@@ -32,10 +32,12 @@ def build():
     while grid:
         n = len(path)
         nsew = []
+
         for i in range(4):
             probe = tuple(map(add, moves[i][0], k))
             link = tuple(map(add, moves[i][1], k))
             nsew.append([probe, link])
+
         shuffle(nsew)
         for prb_lnk in nsew:
             probe, link = prb_lnk
@@ -44,6 +46,7 @@ def build():
                 grid.remove(probe)
                 path.extend(prb_lnk)
                 break
+
         if n == len(path):
             k = path[max(path.index(k)-1, 1)]
         else:
@@ -57,6 +60,7 @@ def build():
             maze[i, j-1],
             maze[i, j+1]
         ]
+
         if neighbors in rules:
             rooms.append(coord)
             maze[coord] = 2
@@ -64,8 +68,8 @@ def build():
     return maze, rooms
 
 
-def draw(maze):
-    """display the maze"""
+def draw_maze(maze):
+    """display a maze"""
     plt.figure(figsize=(len(maze[0])//2, len(maze)//2))
     plt.pcolormesh(maze, cmap=plt.cm.get_cmap("tab20b"))
     plt.axis("equal")
@@ -75,5 +79,5 @@ def draw(maze):
 
 
 
-maze, rooms = build()
-draw(maze)
+maze, rooms = build_maze()
+draw_maze(maze)
