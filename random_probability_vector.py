@@ -1,6 +1,9 @@
 from random import randint, choices, choice, seed
 
-seed(1)
+import pandas as pd
+
+
+# seed(1)
 
 
 def prob_vec(n: int) -> list:
@@ -17,14 +20,31 @@ def prob_vec(n: int) -> list:
     return [*map(lambda num: round(num/T, 3), x)]
 
 
-def markov_step(w: list) -> int:
-    seq = [*range(len(w))]
-    x = choices(seq, w, k=len(w))
-    return choice(x)
+# def markov_step(w: list) -> int:
+#     seq = [*range(len(w))]
+#     x = choices(seq, w, k=len(w))
+#     return choice(x)
 
 
-if __name__ == "__main__":
-    x = prob_vec(10)
-    m = [x[markov_step(x)] for _ in range(1000)]
-    for i in set(m):
-        print(f"{i}: {m.count(i)}")
+# if __name__ == "__main__":
+#     x = prob_vec(10)
+#     m = [x[markov_step(x)] for _ in range(1000)]
+#     for i in set(m):
+#         print(f"{i}: {m.count(i)}")
+
+
+
+import numpy as np
+import pandas as pd
+from random import randint
+
+
+def prob_vec(n: int) -> np.ndarray:
+    X = np.zeros(n)
+    total = 1000 * n
+
+    for i in range(n):
+        X[i] = randint(1, int(np.sqrt(total)))
+        total -= X[i]
+    
+    return X / sum(X)

@@ -106,7 +106,7 @@ d = {
 
 def verbose_print(data, calls=0):
     out = ""
-    t = "|   "
+    t = "   "
     for key, val in data.items():
         if isinstance(val, dict):
             out += t*calls + f"{key}:\n{verbose_print(val, calls+1)}"
