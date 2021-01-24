@@ -24,7 +24,7 @@ def mc1(f: callable, n: int, domain: tuple) -> float:
     return 2 * approx_area
 
 
-def monte_carlo(f: callable, n: int, x_bound: float, y_bound: float) -> float:
+def mc2(f: callable, n: int, x_bound: float, y_bound: float) -> float:
     """A basic Monte Carlo integrator.
 
     Note: this integrator assumes that f is an even function,
@@ -54,6 +54,20 @@ def monte_carlo(f: callable, n: int, x_bound: float, y_bound: float) -> float:
     # y_vals = y_bound * np.random.rand(n)
 
     return 2 * x_bound * y_bound * len(y_vals[y_vals <= f(x_vals)]) / n
+
+
+def monte_carlo(f: callable,
+                x_bounds: tuple,
+                y_bounds: tuple,
+                n=1000000) -> float:
+    x_min, x_max = sorted(x_bounds)
+    y_min, y_max = sorted(y_bounds)
+
+    y = np.random.uniform(y_min, y_max, n)
+    points_under_f = y[y <= f(np.random.uniform(x_min, x_max, n))]
+
+    return (x_max - x_min) * (y_max - y_min) * len(points_under_f) / n
+
 
 
 # y_bound = f(0)
