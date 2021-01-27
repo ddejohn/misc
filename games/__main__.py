@@ -1,9 +1,8 @@
-"""A simple hangman game"""
-
 from random import shuffle
 
 
 class Hangman:
+    """A simple hangman game"""
     def __init__(self):
         self.wordlist = self.load_wordlist()
         self.lives: int
@@ -85,4 +84,95 @@ class Hangman:
             print(f"You have {self.lives} lives left!")
             print(f"Guessed letters: {self.guessed}\n")
 
-Hangman()
+
+class TicTacToe:
+    """An nxn Tic-Tac-Toe game"""
+    def __init__(self, size=4):
+        self.size = size
+        self.board = [["."]*size for _ in range(size)]
+        self.coords = [(i, j) for i in range(size) for j in range(size)]
+        self.player = self.xo()
+
+    def __str__(self):
+        header = "   " + "  ".join(str(i) for i in range(self.size))
+        board = "\n".join(f"{i}".ljust(3) + "  ".join(r) for i, r in enumerate(self.board))
+        return f"\n{header}\n{board}\n"
+
+    def xo():
+        i = 0
+        while True:
+            yield "XO"[i]
+            i = int(not i)
+
+    def winner(self) -> tuple:
+        n = self.size
+        X = ["X"]*n
+        O = ["O"]*n
+
+        rows = self.board.copy()
+        cols = [[rows[i][j] for i in range(n)] for j in range(n)]
+        prim_diag = [rows[i][i] for i in range(n)]
+        sec_diag = [rows[n-1-i][i] for i in range(n)]
+        all_conds = [*rows, *cols, prim_diag, sec_diag]
+
+        if X in all_conds:
+            return "X"
+        elif O in all_conds:
+            return "O"
+        return ""
+
+
+    def place_piece(self, row, col) -> bool:
+        if row > self.size - 1 or col > self.size - 1:
+            print("\nThe board isn't that big!")
+        elif (row, col) not in self.coords:
+            print("\nThat spot is already filled!")
+        else:
+            self.board[row][col] = next(self.player)
+            self.coords.remove((row, col))
+            print(self)
+            winner = self.winner()
+            if winner:
+                print(f"Game over! Winner: {winner}!")
+                return True
+
+        if not self.coords:
+            print("Game over!")
+            return True
+        return False
+
+
+    def get_input():
+        while True:
+            coord = input("Choose coordinates as row, col or quit (q)\n > ")
+            if coord == "q":
+                quit()
+            try:
+                row, col = coord.split(",")
+                return int(row), int(col)
+            except ValueError:
+                print("Invalid input!\n")
+
+
+if __name__ == "__main__":
+    games = {
+        "hangman": Hangman,
+        "tic-tac-toe": TicTacToe
+    }
+
+    # while True:
+    #     size = input("Choose board size (2-10):\n > ")
+    #     try:
+    #         size = int(size)
+    #         if size in range(2, 11):
+    #             break
+    #         print("Invalid board size!")
+    #     except ValueError:
+    #         print("Invalid input!")
+
+    # B = TicTacToe(size)
+    # game_over = False
+
+    # while not game_over:
+    #     row, col = B.get_input()
+    #     game_over = B.place_piece(row, col)

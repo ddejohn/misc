@@ -33,6 +33,10 @@ def binary_combs(n: int) -> list:
     return [tuple((i & 2**j)//(2**j) for j in range(n)) for i in range(2**n)]
 
 
+def set_power(s, n):
+    return [[]] if not n else [t + [x] for t in set_power(s, n - 1) for x in s]
+
+
 def seq(n, p, k):
     return flatten([*map(lambda x: [x]*n**(k-p), range(n))]*n**p)
 
@@ -43,14 +47,16 @@ def combs(n, k):
 
 def truth_table():
     d = {True: "T", False: "F"}
-
-    print("A | B | not A | not B | not A and not B | A or B")
-    print("--|---|-------|-------|-----------------|-------")
+    print(" A | B | not A | not B | not A and not B | A or B ")
+    print("---|---|-------|-------|-----------------|--------")
     for A in (True, False):
         for B in (True, False):
-            print(f"{d[A]} | {d[B]} | {d[not A].center(5)} | {d[not B].center(5)} | {d[not A and not B].center(15)} | {d[A or B].center(5)}")
-
-
+            print("|".join([d[A].center(3),
+                              d[B].center(3),
+                              d[not A].center(7),
+                              d[not B].center(7),
+                              d[not A and not B].center(17),
+                              d[A or B].center(8)]))
 
 
 if __name__ == "__main__":
