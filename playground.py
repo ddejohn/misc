@@ -1,3 +1,6 @@
+from typing import List, Tuple
+
+
 def divisors(n: int) -> list:
     return [*filter(lambda x: n % x == 0, range(1, n+1))]
 
@@ -59,36 +62,7 @@ def truth_table():
                               d[A or B].center(8)]))
 
 
-if __name__ == "__main__":
-    from itertools import product
-    import timeit
-
-    # while True:
-    n, k = 3, 3
-    # n = int(input("n: "))
-    # if n < 2:
-    #     break
-    # k = int(input("k: "))
-
-    t1 = timeit.timeit(
-        "combs(n,k)",
-        number=100000,
-        globals=globals()
-    )
-    t2 = timeit.timeit(
-        "product(*[[*range(n)]]*k)",
-        number=100000,
-        globals=globals()
-    )
-
-    # for comb in combs(n, k):
-    #     print(comb,)
-    # print()
-    for comb in product(range(n), repeat=k):
-        print(comb,)
-
-    print(t1, t2)
-
-    # k = int(input("k: "))
-    # print(combs(n, k))
-    
+def find_reversed_words(L: List[str]) -> List[Tuple[str]]:
+    """Returns a list of word, reversed_word tuples"""
+    pairs = [(w, w[::-1]) for w in L if w[::-1] in L]
+    return list({tuple(sorted(t)) for t in pairs})
