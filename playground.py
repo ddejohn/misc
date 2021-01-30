@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Set
 
 
 def divisors(n: int) -> list:
@@ -62,7 +62,7 @@ def truth_table():
                               d[A or B].center(8)]))
 
 
-def find_reversed_words(L: List[str]) -> List[Tuple[str]]:
-    """Returns a list of word, reversed_word tuples"""
+def find_reversed_words(L: List[str]) -> Set[Tuple[str]]:
+    """Returns a set of word, reversed_word tuples"""
     pairs = [(w, w[::-1]) for w in L if w[::-1] in L]
-    return list({tuple(sorted(t)) for t in pairs})
+    return {tuple(sorted(t)) for t in pairs}
