@@ -91,18 +91,19 @@ class TicTacToe:
         self.size = size
         self.board = [["."]*size for _ in range(size)]
         self.coords = [(i, j) for i in range(size) for j in range(size)]
-        self.player = self.xo()
+        self.player = self.xo_switch()
 
     def __str__(self):
         header = "   " + "  ".join(str(i) for i in range(self.size))
         board = "\n".join(f"{i}".ljust(3) + "  ".join(r) for i, r in enumerate(self.board))
         return f"\n{header}\n{board}\n"
 
-    def xo():
-        i = 0
+    def xo_switch():
+        """Switches between 'X' and 'O'"""
+        switch = 88
         while True:
-            yield "XO"[i]
-            i = int(not i)
+            yield chr(switch)
+            switch = switch ^ (79 ^ 88)
 
     def winner(self) -> tuple:
         n = self.size
