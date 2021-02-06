@@ -1,4 +1,6 @@
+from typing import Union, List
 from random import choice
+Number = Union[int, float]
 
 
 # simple decorator class to print the call count of a recursive function
@@ -13,6 +15,25 @@ class CallCount:
         return self.func(*args, **kwargs)
 
 
+@CallCount
+def bin_search(lst: List[Number], x: Number) -> int:
+    """Returns the index where 'x' is located. Assumes 'lst' is sorted."""
+    if lst[-1] == x:
+        return len(lst) - 1
+    elif lst[0] == x:
+        return 0
+
+    search_space = lst.copy()
+    mid = len(search_space) // 2
+    if x < search_space[mid]:
+        return bin_search(search_space[:mid], x)
+    return mid + bin_search(search_space[mid:], x)
+
+
+print(bin_search([*range(1000)], 523))
+
+
+
 def bits(n: int):
     """n-length bit sequence generator."""
     i = 0
@@ -21,13 +42,14 @@ def bits(n: int):
         yield choice([0,1])
 
 
-# @CallOut
+@CallCount
 def dig_root(n: int) -> int:
     """Recursively compute the digital root of n."""
     q, m = divmod(n, 10)
     return n if n == m else dig_root(q + dig_root(m))
 
 
+@CallCount
 def flatten(data: list) -> list:
     """Recursively flatten 'data' into a 1D list"""
     data = sum(data, [])
@@ -77,7 +99,7 @@ def poly(*coefs):
 # s = "4of Fo1r pe6ople (*) aofwj1 g3ood!e the2 st8 wan2 0a ssss aaa0a"
 # print(sort_words(s))
 
-print(sort_words("i a0m a se3nten!ce f1ul#l of w7ords w/ith nu2mbe8rs a@nd sym&*%#3bols"))
+# print(sort_words("i a0m a se3nten!ce f1ul#l of w7ords w/ith nu2mbe8rs a@nd sym&*%#3bols"))
 
 # print(anagrams(["arrda", "radar", "cow", "bat", "tab", "batt"]))
 
