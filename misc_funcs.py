@@ -30,8 +30,22 @@ def bin_search(lst: List[Number], x: Number) -> int:
     return mid + bin_search(search_space[mid:], x)
 
 
-print(bin_search([*range(1000)], 523))
+def memoize(f: callable) -> callable:
+    cache = {}
+    def lookup(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+    return lookup
 
+
+@memoize
+def fibonacci(n: int) -> int:
+    """Returns the `n`th Fibonacci number."""
+    return n if  n < 2 else fibonacci(n - 2) + fibonacci(n - 1)
+
+
+print(bin_search([*range(1000)], 523))
 
 
 def bits(n: int):
