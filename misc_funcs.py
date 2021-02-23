@@ -1,6 +1,17 @@
 from typing import Union, List, Set, Tuple, Dict
 from random import choice
+import numpy as np
 Number = Union[int, float]
+
+
+def random_binary_tensor() -> np.ndarray:
+    x = np.random.rand(5, 3, 2)
+    return (x == x.max(axis=(1, 2))[:, None, None]).astype(int)
+
+
+def random_probability_vector(n: int) -> np.ndarray:
+    x = np.random.randint(0, n**2, n)
+    return x / np.sum(x)
 
 
 # simple decorator class to print the call count of a recursive function
