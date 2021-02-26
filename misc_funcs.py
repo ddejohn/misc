@@ -29,16 +29,15 @@ class CallCount:
 @CallCount
 def bin_search(lst: List[Number], x: Number) -> int:
     """Returns the index where 'x' is located. Assumes 'lst' is sorted."""
-    if lst[-1] == x:
-        return len(lst) - 1
-    elif lst[0] == x:
+    if lst[0] == x:
         return 0
+    elif lst[-1] == x:
+        return len(lst) - 1
 
-    search_space = lst.copy()
-    mid = len(search_space) // 2
-    if x < search_space[mid]:
-        return bin_search(search_space[:mid], x)
-    return mid + bin_search(search_space[mid:], x)
+    mid = len(lst) // 2
+    if x < lst[mid]:
+        return bin_search(lst[:mid], x)
+    return mid + bin_search(lst[mid:], x)
 
 
 def memoize(f: callable) -> callable:
