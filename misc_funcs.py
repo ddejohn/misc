@@ -14,6 +14,18 @@ def random_probability_vector(n: int) -> np.ndarray:
     return x / np.sum(x)
 
 
+# for/else structure
+def primes_up_to_n(n: int) -> List[int]:
+    primes = []
+    for val in range(2, n+1):
+        for x in range(2, int(val**(1/2)) + 1):
+            if val % x == 0:
+                break
+        else:
+            primes.append(val)
+    return primes
+
+
 # simple decorator class to print the call count of a recursive function
 class CallCount:
     def __init__(self, func):
@@ -63,7 +75,7 @@ def bits(n: int):
     i = 0
     while i < n:
         i += 1
-        yield choice([0,1])
+        yield choice((0, 1))
 
 
 @CallCount
