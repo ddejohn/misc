@@ -1,33 +1,32 @@
-# def dist(x, y, z):
-#     return (x**2 + y**2 + z**2)**(0.5)
-
-
-# def test1():
-#     with open("test.csv", "r") as position_data:
-#         data = position_data.readlines()
-
-#     # CSV data wrangling
-#     data = map(lambda line: map(float, line), map(lambda s: s.strip().split(","), data))
-#     return [dist(*v) for v in data]
-
-
-# def test2():
-#     with open("test.csv", "r") as position_data:
-#         data = position_data.readlines()
-
-#     # CSV data wrangling
-#     data = [line.strip() for line in data]                      # strip newlines
-#     data = [line.split(",") for line in data]                   # split on comma
-#     data = [[float(val) for val in line] for line in data]      # convert to float
-
-#     return [dist(*v) for v in data]
-
-
-
-
-
 from typing import Union, List
 Number = Union[int, float]
+
+
+# def deprecated(func):
+#     def deprecated_func(*args, **kwargs):
+#         print(f"DEPRECATION WARNING: {func.__name__} is deprecated!")
+#         return func(*args, **kwargs)
+#     return deprecated_func
+
+
+def deprecated(alt):
+    def decorator(f):
+        def deprecated_func(*args, **kwargs):
+            print("\nDEPRECATION WARNING:")
+            print(f"    The '{f.__name__}' function is deprecated.\n")
+            print(f"You should use the '{alt.__name__}' function instead.\n")
+            return f(*args, **kwargs)
+        return deprecated_func
+    return decorator
+
+
+def some_better_function():
+    pass
+
+
+@deprecated(some_better_function)
+def some_deprecated_function(*args, **kwargs):
+    print(args, kwargs)
 
 
 def bin_search(lst: List[Number], x: Number) -> int:
