@@ -22,6 +22,18 @@ def get_match(s1: str, s2: str, min_overlap: int = 3) -> str:
     return max(matches, key=len) if matches else ""
 
 
+def join_strings(strings: List[str], joiners: Set[str]) -> str:
+    """
+    Joins an ordered sequence of `strings`, removing the extraneous `joiner`
+    between each pair of joins.
+    """
+    s = "".join(strings)
+    for j in joiners:
+        s = s.replace(j, "", 1)
+    return s
+
+
+# Creates and traverses DAG for longest sequence
 def get_links_and_joiners(strings: List[str]) -> Tuple[Links, Set[str]]:
     """
     Links will be key:value pairs of words that have a common
@@ -47,17 +59,18 @@ def get_ordered_strings(strings: List[str], links: Links) -> List[str]:
     return sorted(strings, key=find_order, reverse=True)
 
 
-def join_strings(strings: List[str], joiners: Set[str]) -> str:
-    """
-    Joins an ordered sequence of `strings`, removing the extraneous `joiner`
-    between each pair of joins.
-    """
-    s = "".join(strings)
-    for j in joiners:
-        s = s.replace(j, "", 1)
-    return s
+# Recursive solution which only joins overlapping strings
+def join_overlapping_strings(strings: List[str]) -> str:
+    if len(strings) == 1:
+        return strings.pop()
+    matches = set()
+    for pair in itertools.permutations(strings, 2):
+        if (match := get_match(*pair)):
+            matches.add(join_strings(pair, (match,)))
+    return join_overlapping_strings(matches)
 
 
+# Examples
 strings = ["THREEFOUR",
            "ONESTRING",
            "STRINGTHREE",
@@ -74,3 +87,6 @@ join_strings(ordered_strings, joiners)
 # OR only join strings which form a pair based on a common substring
 matched_only = get_ordered_strings(set(links) | set(links.values()), links)
 join_strings(matched_only, joiners)
+
+# Resursive solution example:
+join_overlapping_strings(strings)
