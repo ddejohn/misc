@@ -1,7 +1,11 @@
 import itertools
+from typing import Set, Tuple, Dict, List
 
 
-def get_match(s1, s2, min_overlap=3):
+Links = Dict[str, str]
+
+
+def get_match(s1: str, s2: str, min_overlap: int = 3) -> str:
     """
     'Slides' `s2` from the left over the end of `s1`,
     starting at `min_overlap`. Adds all common subtstrings
@@ -15,10 +19,10 @@ def get_match(s1, s2, min_overlap=3):
             continue
         matches.append(s1[-i:])
         i += 1
-    return max(matches, key=len) if matches else None
+    return max(matches, key=len) if matches else ""
 
 
-def get_links_and_joiners(strings):
+def get_links_and_joiners(strings: List[str]) -> Tuple[Links, Set[str]]:
     """
     Links will be key:value pairs of words that have a common
     substring where the end of `s1` overlaps with the start of `s2`.
@@ -33,17 +37,17 @@ def get_links_and_joiners(strings):
     return links, joiners
 
 
-def get_ordered_strings(strings, links):
+def get_ordered_strings(strings: List[str], links: Links) -> List[str]:
     """
     A recursive closure which determines the length of each sequence
     starting at `node` and traversing the `links` dictionary.
     """
-    def find_order(node):
+    def find_order(node: str) -> int:
         return 0 if node not in links else 1 + find_order(links[node])
     return sorted(strings, key=find_order, reverse=True)
 
 
-def join_strings(strings, joiners):
+def join_strings(strings: List[str], joiners: Set[str]) -> str:
     """
     Joins an ordered sequence of `strings`, removing the extraneous `joiner`
     between each pair of joins.
